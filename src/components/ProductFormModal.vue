@@ -6,7 +6,7 @@
       </div>
       <input v-model="formData.name" type="text" placeholder="Name" pattern="[A-Za-z]{1,10}" required>
       <input v-model="formData.price" type="text" placeholder="Price" pattern="[0-9]{1,4}" required>
-      <textarea v-model="formData.description" name="" id="" cols="30" rows="10" placeholder="Description" required></textarea>
+      <textarea v-model="formData.description" cols="30" rows="10" placeholder="Description" required></textarea>
       <button class="add" type="submit"><BIconSendFill></BIconSendFill></button>
     </form>
   </div>

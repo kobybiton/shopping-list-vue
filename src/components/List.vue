@@ -5,7 +5,7 @@
       <span>{{ product.name }}</span> <span class="price">{{ product.price }}</span><span>NIS</span>
     </div>
     <div class="approve-product"><ApproveProductBtn :id="id" @toggleMark="toggleMark"></ApproveProductBtn></div>
-    <div class="delete-product"><DeleteProductBtn></DeleteProductBtn></div>
+    <div class="delete-product"><DeleteProductBtn :id="id" @deleteProduct="deleteProduct"></DeleteProductBtn></div>
   </div>
   <div class="list-footer">
     <div class="total">
@@ -43,6 +43,9 @@ export default {
       } else {
         this.approvedProduct.splice(index, 1)
       }
+    },
+    deleteProduct (id) {
+      this.productsList.splice(id, 1)
     },
     addProduct (product) {
       this.productsList.push(product)

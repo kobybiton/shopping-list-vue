@@ -12,11 +12,6 @@ export default {
       type: Number
     }
   },
-  data () {
-    return {
-      approvedTask: false
-    }
-  },
   methods: {
     toggleMark () {
       this.$emit('toggleMark', this.id)
