@@ -1,18 +1,10 @@
 <template>
-  <div class="list">
-    <div class="order">1</div>
-    <div class="product-approval" :class="approvedProduct.indexOf('1') >= 0 ? 'marked': ''">
-      <span>tomato</span> <span class="price">5</span><span>NIS</span>
+  <div class="list" v-for="(product, id) in productsList" :key="id">
+    <div class="order">{{ id+1 }}</div>
+    <div class="product-approval" :class="approvedProduct.indexOf(id) >= 0 ? 'marked': ''">
+      <span>{{ product.name }}</span> <span class="price">{{ product.price }}</span><span>NIS</span>
     </div>
-    <div class="approve-product"><ApproveProductBtn id="1" @toggleMark="toggleMark"></ApproveProductBtn></div>
-    <div class="delete-product"><DeleteProductBtn></DeleteProductBtn></div>
-  </div>
-  <div class="list">
-    <div class="order">2</div>
-    <div class="product-approval" :class="approvedProduct.indexOf('2') >= 0 ? 'marked': ''">
-      <span>tomato</span> <span class="price">5</span><span>NIS</span>
-    </div>
-    <div class="approve-product"><ApproveProductBtn id="2" @toggleMark="toggleMark"></ApproveProductBtn></div>
+    <div class="approve-product"><ApproveProductBtn :id="id" @toggleMark="toggleMark"></ApproveProductBtn></div>
     <div class="delete-product"><DeleteProductBtn></DeleteProductBtn></div>
   </div>
   <div class="list-footer">
@@ -20,7 +12,7 @@
       <span class="label">Total:</span>
       <span class="amount">55 NIS</span>
     </div>
-    <AddProductBtn></AddProductBtn>
+    <AddProductBtn @product="addProduct"></AddProductBtn>
   </div>
 </template>
 
@@ -33,7 +25,7 @@ export default {
   name: 'List',
   data () {
     return {
-      listOrder: 0,
+      productsList: [],
       approvedProduct: []
     }
   },
@@ -51,6 +43,9 @@ export default {
       } else {
         this.approvedProduct.splice(index, 1)
       }
+    },
+    addProduct (product) {
+      this.productsList.push(product)
     }
   }
 }
