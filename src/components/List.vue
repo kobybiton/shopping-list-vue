@@ -1,18 +1,18 @@
 <template>
-  <div class="list" v-for="(product, id) in productsList" :key="id">
+  <div class="list" v-for="(product, id) in products" :key="id">
     <div class="order">{{ id+1 }}</div>
-    <div class="product-approval" :class="approvedProduct.indexOf(id) >= 0 ? 'marked': ''">
+    <div class="product-approval" :class="approvedProduct.indexOf(id) >= 0 ? 'marked': ''" @click="productDescription(product.description)">
       <span>{{ product.name }}</span> <span class="price">{{ product.price }}</span><span>NIS</span>
     </div>
     <div class="approve-product"><ApproveProductBtn :id="id" @toggleMark="toggleMark"></ApproveProductBtn></div>
     <div class="delete-product"><DeleteProductBtn :id="id" @deleteProduct="deleteProduct"></DeleteProductBtn></div>
   </div>
   <div class="list-footer">
-    <div class="total">
+    <div class="total" v-if="products.length">
       <span class="label">Total:</span>
-      <span class="amount">55 NIS</span>
+      <span class="amount">{{ totalAmount }} NIS</span>
     </div>
-    <AddProductBtn @product="addProduct"></AddProductBtn>
+    <AddProductBtn></AddProductBtn>
   </div>
 </template>
 
@@ -23,18 +23,35 @@ import AddProductBtn from '../components/buttons/AddProductBtn'
 
 export default {
   name: 'List',
-  data () {
-    return {
-      productsList: [],
-      approvedProduct: []
-    }
-  },
   components: {
     DeleteProductBtn,
     ApproveProductBtn,
     AddProductBtn
   },
+  data () {
+    return {
+      approvedProduct: []
+    }
+  },
+  computed: {
+    products () {
+      return this.$store.getters.getProducts
+    },
+    totalAmount () {
+      let sum = 0
+      this.products.forEach(product => {
+        sum += Number(product.price)
+      })
+      return sum
+    }
+  },
   methods: {
+    productDescription (description) {
+      this.$router.push({
+        name: 'Product',
+        params: { description }
+      })
+    },
     toggleMark (id) {
       const index = this.approvedProduct.indexOf(id)
 
@@ -45,11 +62,11 @@ export default {
       }
     },
     deleteProduct (id) {
-      this.productsList.splice(id, 1)
-    },
-    addProduct (product) {
-      this.productsList.push(product)
+      this.products.splice(id, 1)
     }
+  },
+  mounted () {
+    // console.log(this.$store.getters.getProducts)
   }
 }
 </script>
@@ -73,6 +90,7 @@ export default {
         margin: -1px 25px 0 0
       }
       &.product-approval {
+        cursor: pointer;
         word-spacing: 105px;
         width: 400px;
         .price {

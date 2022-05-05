@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     submit () {
-      this.$emit('form-data', this.formData)
+      this.$store.commit('addProduct', this.formData)
       this.formData = []
       this.$emit('close-modal')
     }

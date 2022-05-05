@@ -4,7 +4,7 @@ import ShoppingList from '../views/ShoppingList.vue'
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'ShoppingList',
     component: ShoppingList
   },
   {

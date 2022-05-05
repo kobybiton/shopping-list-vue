@@ -1,8 +1,4 @@
 <template>
-  <div id="nav">
-    <router-link to="/">ShoppingList</router-link> |
-    <router-link to="/product">Product</router-link>
-  </div>
   <router-view/>
 </template>
 

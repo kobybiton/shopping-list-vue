@@ -3,7 +3,7 @@
     <span class="icon" @click="showModal = true">+</span>
     <span class="label">Add  Product</span>
   </div>
-  <ProductFormModal @form-data="getFormData" v-show="showModal" @close-modal="showModal = false"></ProductFormModal>
+  <ProductFormModal v-show="showModal" @close-modal="showModal = false"></ProductFormModal>
 </template>
 
 <script>
@@ -17,11 +17,6 @@ export default {
   data () {
     return {
       showModal: false
-    }
-  },
-  methods: {
-    getFormData (data) {
-      this.$emit('product', data)
     }
   }
 }
